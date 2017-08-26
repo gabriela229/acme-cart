@@ -1,1 +1,3 @@
 # acme-cart
+
+npm install
