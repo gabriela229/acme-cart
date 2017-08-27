@@ -1,0 +1,23 @@
+<h3>Your Cart</h3>
+<div class="well">
+  <ul class="list-group">
+    {% for item in LineItemsInCart %}
+    <li class="list-group-item"> {{item.LIProd.name}}
+      <span class="badge pull-right">{{item.quantity}}</span>
+      <form action="/{{item.orderId}}/lineItems/{{item.LIProdId}}" method="POST">
+      <button class="btn btn-warning">Remove from Cart</button>
+    </form></li>
+    {% endfor %}
+  </ul>
+  <hr>
+  <div>
+      <h5>Address</h5>
+      <form action="" method="POST">
+        <div class="form-group">
+          <input class='form-control' type="text">
+        </div>
+        <button class="btn btn-primary">Place Order</button>
+        </form>
+  </div>
+
+</div>

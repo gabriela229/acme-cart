@@ -9,35 +9,21 @@
         <div class="col-md-8">
           <h3>Products</h3>
           <ul class="list-group">
+            {% for product in productArr %}
             <li class="list-group-item">
-              <form action="" method="POST">
-                  TEST Product
+              <form action="/orders/{{order.id}}/lineItems" method="POST">
+                  {{product.name}}
+                  <input type="hidden" name='productId' value={{product.id}}>
                 <button class="btn btn-primary pull-right">Add to Cart</button>
               </form>
-          </li>
+            </li>
+            {% endfor %}
           </ul>
         </div>
         <div class="col-md-4">
-          <h3>Your Cart</h3>
-          <div class="well">
-            <ul class="list-group">
-              <li class="list-group-item"> TEST Cart Item
-                <form action="" method="POST">
-                <button class="btn btn-warning">Remove from Cart</button>
-              </form></li>
-            </ul>
-            <hr>
-            <div>
-                <h5>Address</h5>
-                <form action="" method="POST">
-                  <div class="form-group">
-                    <input class='form-control' type="text">
-                  </div>
-                  <button class="btn btn-primary">Place Order</button>
-                  </form>
-            </div>
-
-          </div>
+          {% if order.isCart === true %}
+          {% include 'cart.html' %}
+          {% endif %}
           <div>
               <h3>Your Orders</h3>
               <ul class="list-group">

@@ -1,5 +1,6 @@
-// var Sequelize = require('sequelize');
 var db = require('./conn');
+var Sequelize = db.Sequelize;
+
 
 const Product = db.define('product', {
   name: {
@@ -7,7 +8,8 @@ const Product = db.define('product', {
   }
 });
 
-
-module.exports = {
-  Product
+Product.findProductViewModel = function(){
+  return Product.findAll();
 };
+
+module.exports = Product;

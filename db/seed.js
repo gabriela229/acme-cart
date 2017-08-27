@@ -11,6 +11,12 @@ module.exports = ({Product, Order, LineItem}) => {
     }),
     Product.create({
       name: 'Silver Garbage Can'
+    }),
+    Product.create({
+      name: 'Cookies'
     })
   ])
-}
+  .then(([RubberDuck, StripedShirt, FishBowl, GarbageCan, Cookies]) => {
+    return [RubberDuck, StripedShirt, FishBowl, GarbageCan, Cookies];
+  });
+};
