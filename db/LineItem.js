@@ -7,13 +7,25 @@ const LineItem = db.define('lineItem', {
   }
 });
 
-LineItem.getLineItemsInOrder = function(orderId){
-  return LineItem.findAll({
-    where: {
-      orderId: orderId
-    },
+// LineItem.getLineItemsInOrder = function(orderId){
+//   return LineItem.findAll({
+//     where: {
+//       orderId: orderId
+//     },
+//     include: ['LIProd']
+//   })
+//     .then( (lineItems) => {
+//       if (lineItems === null){
+//         return [];
+//       }
+//       return lineItems;
+//     });
+// };
+
+LineItem.getLineItems = function(){
+    return LineItem.findAll({
     include: ['LIProd']
-  })
+    })
     .then( (lineItems) => {
       if (lineItems === null){
         return [];
@@ -21,4 +33,5 @@ LineItem.getLineItemsInOrder = function(orderId){
       return lineItems;
     });
 };
+
 module.exports = LineItem;

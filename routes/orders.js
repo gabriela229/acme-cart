@@ -6,13 +6,28 @@ var Order = db.models.Order;
 
 
 router.post('/:id/lineItems', function(req, res, next){
-
-  return Order.addProductToCart(req.body.productId * 1)
+  Order.addProductToCart(req.body.productId * 1)
     .then( () => {
-
       res.redirect('/');
     })
     .catch(next);
 });
+
+
+router.delete('/:orderId/lineItems/:prodId', function(req, res, next){
+  Order.detroyLineItem(req.params.orderId, req.params.prodId)
+    .then( () => {
+      res.redirect('/');
+    })
+    .catch(next);
+})
+
+router.put('/:id', function(req, res, next){
+  Order.updateFromRequestBody(req.params.id, req.body)
+    .then( () => {
+      res.redirect('/');
+    });
+});
+
 
 module.exports = router;

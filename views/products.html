@@ -1,0 +1,12 @@
+<h3>Products</h3>
+<ul class="list-group">
+  {% for product in productArr %}
+  <li class="list-group-item">
+    <form action="/orders/{{cartOrder.id}}/lineItems" method="POST">
+        {{product.name}}
+        <input type="hidden" name='productId' value={{product.id}}>
+      <button class="btn btn-primary pull-right">Add to Cart</button>
+    </form>
+  </li>
+  {% endfor %}
+</ul>

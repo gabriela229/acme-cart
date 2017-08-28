@@ -8,7 +8,6 @@ var Order = db.models.Order;
 var LineItem = db.models.LineItem;
 var bodyParser = require('body-parser');
 
-
 nunjucks.configure('views', {
   express: app,
   noCache: true
@@ -18,17 +17,19 @@ app.set('view engine', 'html');
 app.use('/vendors', express.static(path.join(__dirname, 'node_modules')));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(require('method-override')('_method'));
 app.use('/orders', require('./routes/orders'));
 
 app.get('/', function(req, res, next){
   return Promise.all([
     Product.findProductViewModel(),
-    Order.getOrder()
+    Order.getCartOrder(),
+    Order.findAllPlacedOrders()
   ])
-    .then( ([productArr, order]) => {
-      return LineItem.getLineItemsInOrder(order.id)
-        .then( LineItemsInCart => {
-          return res.render('index', {productArr, order, LineItemsInCart});
+    .then( ([productArr, cartOrder, placedOrders]) => {
+      return LineItem.getLineItems()
+        .then( LineItems => {
+          return res.render('index', {productArr, cartOrder, LineItems, placedOrders});
         });
     })
     .catch(next);

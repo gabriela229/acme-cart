@@ -7,32 +7,14 @@
       <h1>Acme Cart</h1>
       <div class="row">
         <div class="col-md-8">
-          <h3>Products</h3>
-          <ul class="list-group">
-            {% for product in productArr %}
-            <li class="list-group-item">
-              <form action="/orders/{{order.id}}/lineItems" method="POST">
-                  {{product.name}}
-                  <input type="hidden" name='productId' value={{product.id}}>
-                <button class="btn btn-primary pull-right">Add to Cart</button>
-              </form>
-            </li>
-            {% endfor %}
-          </ul>
+            {% include 'products.html' %}
         </div>
         <div class="col-md-4">
-          {% if order.isCart === true %}
+          {% if cartOrder.id > 0 %}
           {% include 'cart.html' %}
           {% endif %}
           <div>
-              <h3>Your Orders</h3>
-              <ul class="list-group">
-                  <li class="list-group-item"> TEST Order: Number
-                  <ul class="list-group">
-                      <li class="list-group-item"> TEST Ordered Item</li>
-                  </ul>
-                </li>
-              </ul>
+              {% include 'orders.html' %}
           </div>
         </div>
       </div>

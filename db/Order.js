@@ -42,7 +42,7 @@ Order.addProductToCart = function(productId){
 };
 
 
-Order.getOrder = function(){
+Order.getCartOrder = function(){
   return Order.findCart()
     .then( orderInCart => {
       if (orderInCart === null){
@@ -51,6 +51,35 @@ Order.getOrder = function(){
         return orderInCart;
       }
     });
+};
+
+Order.detroyLineItem = function(orderId, prodId){
+  return LineItem.destroy({
+    where: {
+      orderId: orderId,
+      LIProdId: prodId
+    }
+  });
+};
+
+Order.updateFromRequestBody = function(orderId, body){
+  return Order.findOne({
+    where: {
+      id: orderId * 1
+    }
+  })
+    .then((order) => {
+      return order.update(body);
+    });
+};
+
+Order.findAllPlacedOrders = function(){
+  return Order.findAll({
+    where: {
+      isCart: false
+    },
+    include: [Product]
+  });
 };
 
 module.exports = Order;
