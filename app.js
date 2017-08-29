@@ -35,4 +35,18 @@ app.get('/', function(req, res, next){
     .catch(next);
 });
 
+app.use(function(err, req, res, next){
+  return Promise.all([
+    Product.findProductViewModel(),
+    Order.getCartOrder(),
+    Order.findAllPlacedOrders()
+  ])
+    .then( ([productArr, cartOrder, placedOrders]) => {
+      return LineItem.getLineItems()
+        .then( LineItems => {
+          return res.render('index', {productArr, cartOrder, LineItems, placedOrders, error: err.message});
+        });
+    });
+});
+
 module.exports = app;

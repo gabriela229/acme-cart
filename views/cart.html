@@ -1,4 +1,7 @@
 <h3>Your Cart</h3>
+{% if error %}
+<div class="alert alert-danger">{{error}}</div>
+{% endif %}
 <div class="well">
   <ul class="list-group">
     {% for item in LineItems %}

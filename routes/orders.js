@@ -20,14 +20,17 @@ router.delete('/:orderId/lineItems/:prodId', function(req, res, next){
       res.redirect('/');
     })
     .catch(next);
-})
+});
 
 router.put('/:id', function(req, res, next){
   Order.updateFromRequestBody(req.params.id, req.body)
     .then( () => {
       res.redirect('/');
-    });
+    })
+    .catch(next);
 });
+
+
 
 
 module.exports = router;

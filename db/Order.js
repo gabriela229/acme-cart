@@ -17,7 +17,7 @@ Order.findCart = function(){
     where: {
       isCart: true
     }
-  })
+  });
 };
 
 Order.addProductToCart = function(productId){
@@ -69,6 +69,10 @@ Order.updateFromRequestBody = function(orderId, body){
     }
   })
     .then((order) => {
+      if (!body.address) {
+        console.log('here!');
+        throw new Error('address required');
+      }
       return order.update(body);
     });
 };
